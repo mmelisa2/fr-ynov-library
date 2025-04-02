@@ -1,6 +1,12 @@
 package fr.ynov.library.domain;
 
-public class Book {
+import java.io.Serial;
+import java.io.Serializable;
+
+// The book class implements Serializable in order to save data.
+public class Book implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 //Initializing necessary variables and components of a potential book that could be added to a library
     private final String title;
     private final String author;
