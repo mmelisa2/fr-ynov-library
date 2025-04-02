@@ -6,7 +6,6 @@ public enum ReadingStatus {
     READ("Read"),
     DID_NOT_FINISH("Did Not Finish");
 
-
     private final String displayName;
     ReadingStatus(String displayName) {
         this.displayName = displayName;

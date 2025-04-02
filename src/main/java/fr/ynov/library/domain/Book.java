@@ -1,7 +1,7 @@
 package fr.ynov.library.domain;
 
 public class Book {
-
+//Initializing necessary variables and components of a potential book that could be added to a library
     private final String title;
     private final String author;
     private final Genre genre;
@@ -49,6 +49,7 @@ public class Book {
         this.readingStatus = readingStatus;
     }
 
+    // Displaying text for the users to understand the information relating to their added book.
     @Override
     public String toString() {
         return "Title: " + title + ", Author: " + author + ", Genre: " + genre + ", Page Number: " + pageNumber + ", Language: "
