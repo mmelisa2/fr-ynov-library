@@ -3,8 +3,6 @@ package fr.ynov.library.gui.buttons;
 import fr.ynov.library.domain.Book;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RemoveBookButton extends JButton {
     private final DefaultListModel<Book> bookListModel;
@@ -17,12 +15,7 @@ public class RemoveBookButton extends JButton {
         this.bookList = bookList;
         this.parentFrame = parentFrame;
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeSelectedBook();
-            }
-        });
+        addActionListener(e -> removeSelectedBook());
     }
 
     private void removeSelectedBook() {

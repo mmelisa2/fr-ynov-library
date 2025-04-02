@@ -3,12 +3,10 @@ package fr.ynov.library.gui.buttons;
 import fr.ynov.library.domain.Book;
 import fr.ynov.library.domain.Genre;
 import fr.ynov.library.domain.Language;
-import fr.ynov.library.factory.BookFactory;
 import fr.ynov.library.gui.panels.InputPanel;
+import fr.ynov.library.domain.ReadingStatus;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddBookButton extends JButton {
     private final DefaultListModel<Book> bookListModel;
@@ -21,14 +19,10 @@ public class AddBookButton extends JButton {
         this.inputPanel = inputPanel;
         this.parentFrame = parentFrame;
 
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addBook();
-            }
-        });
+        addActionListener(e -> addBook());
     }
 
+    //Getting necessary information for a book to be added to the library.
     private void addBook() {
         String title = inputPanel.getTitle();
         String author = inputPanel.getAuthor();
@@ -38,6 +32,7 @@ public class AddBookButton extends JButton {
         String publisher = inputPanel.getPublisher();
         String publishedYear = inputPanel.getPublishedYear();
 
+        //Error message users get if either one of the required fields are empty.
         if (title.isEmpty() || author.isEmpty() || genre == null || pageNumber.isEmpty()
                 || language == null || publisher.isEmpty() || publishedYear.isEmpty()) {
             JOptionPane.showMessageDialog(parentFrame, "Please fill all the required fields!");
@@ -47,9 +42,13 @@ public class AddBookButton extends JButton {
         try {
             int pages = Integer.parseInt(pageNumber);
             int year = Integer.parseInt(publishedYear);
-            Book newBook = BookFactory.createBook(title, author, genre, pages, language, publisher, year);
+            Book newBook = new Book(title, author, genre, pages, language, publisher, year);
+            newBook.setReadingStatus(ReadingStatus.WANT_TO_READ);
             bookListModel.addElement(newBook);
+            //Clearing input fields after adding a new book to the library.
             inputPanel.clearFields();
+        //Notification messages
+            JOptionPane.showMessageDialog(parentFrame, "Book added: " + title + " (Reading Status: Want to Read)");
         } catch (NumberFormatException exc) {
             JOptionPane.showMessageDialog(parentFrame, "Invalid input! The [Page Number] and [Published Year] values have to be numbers.");
         }
